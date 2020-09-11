@@ -22,20 +22,31 @@ export class ListProductosComponent implements OnInit {
   ];
 
  //array que recibe los productos de la api 
-  rowData = [
-    { imagen: 'imagen01', id: '01', producto: 'Alcohol', sku: '00001', presentacion: 'Botella', categorias: 'Liquido', tipo: 'Individual' }
-  ];
+  rowData = { 'items': [
+    { imagen: 'imagen01', id: '01', producto: 'Alcohol', sku: '00001', presentacion: 'Botella', categorias: 'Liquido', tipo: 'Individual' } ,
+    {
+      imagen : 'Imagen02.jpg', id: '1', producto: 'APO FLUOXETINA 20 MG TABLETAS VIA ORAL',sku: '0000', presentacion: '', categorias:'', tipo: 'Individual'
+    },
+  ]};
 
-  constructor(public productosService: ProductosServiceService) { 
+  constructor(public productosService: ProductosServiceService) {     
     this.cargarProductos();
   }
 
   cargarProductos(){
+
+    this.productosService.getToken().subscribe(data=>{
+      //guardamos el token en el localStorage
+      localStorage.setItem('auth_token', data); 
+
       this.productosService.getProductos().subscribe(
         data=>{
-          console.log("resuk:" + data);
+         //se recogeria los datos grecuperados del servicio        
+         //this.rowData = data;
         }
       );
+    });
+      
   }
 
   ngOnInit(): void {

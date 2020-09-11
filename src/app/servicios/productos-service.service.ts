@@ -1,29 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpInterceptor} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductosServiceService implements HttpInterceptor {
- 
+export class ProductosServiceService{
+  token: string ="";
   apiUrl: string ="http://35.224.229.246/rest/V1/"; //ruta api rest
 
   constructor(private http: HttpClient) { }
 
-  intercept(req: HttpRequest<any>,next: HttpHandler):Observable<HttpEvent<any>>{
-    console.log("ingreso al interceptor");
-    const headers = req.clone({
-      headers: req.headers.set('Authorization', 'Bearer lyn6s01azdmnva5x1qmbmb059ih9rmp1')
-    });
-    
-    return next.handle(headers);
+  public getToken(): Observable<any>{
+    let options : any = {
+      "username" : "tester",
+      "password" : "95vbBJOeD$He5rq"
+    }
+    return this.http.post("http://35.224.229.246/rest/V1/integration/admin/token",options);
   }
 
-
-
-  getProductos(): Observable<any>{
-     return this.http.get<any>(this.apiUrl + "products?searchCriteria");
+  public getProductos(): Observable<any>{
+    //problemas de cors
+    //return this.http.get<any>(this.apiUrl + "products?searchCriteria");
+    return this.http.get<any>('http://dummy.restapiexample.com/api/v1/employees')
   }
 }

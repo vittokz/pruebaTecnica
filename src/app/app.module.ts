@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ListProductosComponent } from './components/list-productos/list-productos.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ProductosServiceService } from './servicios/productos-service.service';
+import { HeaderInterceptor } from './interceptors/header.interceptor'
 
 @NgModule({
   declarations: [
@@ -19,11 +20,13 @@ import { ProductosServiceService } from './servicios/productos-service.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [{
+  providers: [
+    ProductosServiceService,
+    {
       provide : HTTP_INTERCEPTORS,
-      useClass: ProductosServiceService,
+      useClass: HeaderInterceptor,
       multi: true
-  } 
+    } 
   ],
   bootstrap: [AppComponent]
 })

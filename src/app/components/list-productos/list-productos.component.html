@@ -1,11 +1,15 @@
 <div class="container">
-    <h2>Lista de Productos</h2><hr>
-    <h3>Verifique o seleccione los productos que desea distribuir en farmacias participantes</h3>
-    <ag-grid-angular
-        style="width: 95%; height: 500px; padding: 20px;"
-        class="ag-theme-alpine"
-        [rowData]="rowData"
-        [columnDefs]="columnDefs"
-        >
-    </ag-grid-angular>
+            <div style="margin:20px">
+                <h2>Lista de Productos</h2>
+                <h3>Verifique o seleccione los productos que desea distribuir en farmacias participantes</h3>
+            </div>
+           
+            <ag-grid-angular
+                style="width: 95%; height: 500px; padding: 20px;"
+                class="ag-theme-alpine"
+                [rowData]="rowData.items"
+                [columnDefs]="columnDefs"
+                >
+            </ag-grid-angular>
+      
 </div>
